@@ -1,12 +1,30 @@
-const request = require('request');
+const yargs = require('yargs');
 const {getLocation}  = require('./getPosition.js');
 const { getWeather } = require('./getWeather.js');
 
-const getWeatherData =  ()=>{
+
+yargs.command({
+    command: 'address',
+    describe: 'Provide an address',
+    builder: {
+        city: {
+            describe: 'Address Required',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: (argv) => {
+        getWeatherData(argv);
+    }
+
+});
+
+
+const getWeatherData = (argv)=>{
     let latitude = '';
     let longitude = '';
     let url = '';
-    getLocation('Dhaka,Bangladesh', (error, data)=>{
+    getLocation(argv.address, (error, data)=>{
         if(error){
             console.log(error);
         }else{
@@ -25,6 +43,4 @@ const getWeatherData =  ()=>{
 }
 
 
-
-
-getWeatherData();
+yargs.parse();
