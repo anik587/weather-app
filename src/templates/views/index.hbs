@@ -6,13 +6,19 @@
 
 <h3>Looking for weather update search below</h3>
 
-<form>
+<form id="weather">
     <div>
         <label>City</label>
         <input name="city" id="city"/>
-        <button class="searchButton">Search</button>
+        <button class="searchButton" type="submit">Search</button>
     </div>
     
 </form>
 
+<p id="timezone"></p>
+<p id="summary"></p>
+<p id="precipType"></p>
+
+
+<script type="text/javascript" src="js/app.js"></script>
 {{>footer}}

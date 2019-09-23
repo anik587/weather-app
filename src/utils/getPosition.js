@@ -9,7 +9,7 @@ const getPosition = (location, callback)=>{
         json: true,
     }, (error, response) => {
         if (error) {
-            console.log('Unable to connect location service')
+            callback('Unable to connect location service', undefined);
         } if (response.body.features === undefined) {
             callback('Unable to fetch location', undefined);
         } else if (response.body.features.length === 0) {

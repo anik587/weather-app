@@ -45,24 +45,29 @@ app.get('/weather-data', (req, res)=>{
     let latitude = '';
     let longitude = '';
     let url = '';
-    console.log(getPosition)
-   // res.send(getPosition)
-    getPosition(req.query.city, (err, data)=>{
-        if(data === undefined){
-            res.status(500).send(err, data);
-        }else{
-            latitude = data[0]
-            longitude = data[1]
-            url = `https://api.darksky.net/forecast/966f210d15503070d798f9e8064091a9/${latitude},${longitude}?units=si&lang=en`
-            getWeather(url, (err, data)=>{
-                if(data === undefined){
-                   res.status(500).send(err)
-                }else{
-                   res.status(200).send(JSON.stringify({'data': data}))
-                }
-            })
-        }
-    }) 
+
+    if (!req.query.city){
+        res.status(500).send(JSON.stringify({status: false, message:'City Required', data: []}))
+    }
+        getPosition(req.query.city, (err, data) => {
+            if (data === undefined) {
+                res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }));
+            } else {
+                latitude = data[0]
+                longitude = data[1]
+                url = `https://api.darksky.net/forecast/966f210d15503070d798f9e8064091a9/${latitude},${longitude}?units=si&lang=en`
+                getWeather(url, (err, data) => {
+                    console.log(data)
+                    if (data === undefined) {
+                        res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }))
+                    } else {
+                        res.status(200).send(JSON.stringify({ status: true, message: err, data: data }))
+                    }
+                })
+            }
+        }) 
+    
+    
 })
 
 app.get('*', (req, res) => {
