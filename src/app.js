@@ -19,17 +19,26 @@ const staticDirectory = express.static(publicPath)
 app.use(staticDirectory)
 
 
-app.get(['/'], (req, res)=>{
-    res.render('index');
+app.get('/', (req, res)=>{
+    res.render('index',{
+        info: 'Nature is the mother',
+        date: new Date 
+    })
 })
 
 
 app.get('/help', (req, res) => {
-    res.render('help')
+    res.render('help', {
+        info: 'Help',
+        content: 'Ask for help here anik587@gmail.com'
+    })
 })
 
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', {
+        info: 'About',
+        content: 'This is a simple weather app build on node js using express and hbs'
+    })
 })
 
 app.get('*', (req, res) => {
