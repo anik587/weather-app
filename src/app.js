@@ -1,18 +1,22 @@
-const express = require('express');
-const path = require('path');
-const hbs = require('hbs');
+const express = require('express')
+const path = require('path')
+const hbs = require('hbs')
 
-const { getLocation,getWeather}  = require('./utils/index');
+const { getLocation,getWeather}  = require('./utils/index')
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+const app = express()
+const PORT = process.env.PORT || 3001
 
-const viewPath = path.join(__dirname, '../src/templates/views');
-const partialPath = path.join(__dirname, '../src/templates/partials');
+const viewPath = path.join(__dirname, '../src/templates/views')
+const partialPath = path.join(__dirname, '../src/templates/partials')
+const publicPath = path.join(__dirname, '../src/public')
 
-app.set('view engine', 'hbs');
-app.set('views', viewPath);
-hbs.registerPartials(partialPath);
+app.set('view engine', 'hbs')
+app.set('views', viewPath)
+hbs.registerPartials(partialPath)
+
+const staticDirectory = express.static(publicPath)
+app.use(staticDirectory)
 
 
 app.get(['/'], (req, res)=>{
@@ -21,15 +25,15 @@ app.get(['/'], (req, res)=>{
 
 
 app.get('/help', (req, res) => {
-    res.render('help');
+    res.render('help')
 })
 
 app.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about')
 })
 
 app.get('*', (req, res) => {
-    res.render('404');
+    res.render('404')
 })
 
 
