@@ -1,8 +1,7 @@
-const getWeather = require('./getWeather')
-const getPosition = require('./getPosition')
+const {getWeather} = require('./getWeather')
+const {getPosition} = require('./getPosition')
 
 module.exports = {
-    getLocation: getPosition,
+    getPosition: getPosition,
     getWeather: getWeather
-
 }

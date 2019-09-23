@@ -1,7 +1,7 @@
 const request = require('request');
 
 
-const getLocation = (location, callback)=>{
+const getPosition = (location, callback)=>{
     const geoCodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=pk.eyJ1IjoiYW5pazU4NyIsImEiOiJjanp3ZWJjaGgwYXVvM2xvMTJ0bHhoN21oIn0.VRvnGkVOjUKRxKdl3Yz6_A&limit=1`;
 
     request({
@@ -26,5 +26,5 @@ const getLocation = (location, callback)=>{
 
 
      module.exports = {
-         getLocation: getLocation
+         getPosition: getPosition
      }

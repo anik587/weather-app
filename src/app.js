@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 
-const { getLocation,getWeather}  = require('./utils/index')
+const { getPosition,getWeather}  = require('./utils/index')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -39,6 +39,30 @@ app.get('/about', (req, res) => {
         info: 'About',
         content: 'This is a simple weather app build on node js using express and hbs'
     })
+})
+
+app.get('/weather-data', (req, res)=>{
+    let latitude = '';
+    let longitude = '';
+    let url = '';
+    console.log(getPosition)
+   // res.send(getPosition)
+    getPosition(req.query.city, (err, data)=>{
+        if(data === undefined){
+            res.status(500).send(err, data);
+        }else{
+            latitude = data[0]
+            longitude = data[1]
+            url = `https://api.darksky.net/forecast/966f210d15503070d798f9e8064091a9/${latitude},${longitude}?units=si&lang=en`
+            getWeather(url, (err, data)=>{
+                if(data === undefined){
+                   res.status(500).send(err)
+                }else{
+                   res.status(200).send(JSON.stringify({'data': data}))
+                }
+            })
+        }
+    }) 
 })
 
 app.get('*', (req, res) => {
