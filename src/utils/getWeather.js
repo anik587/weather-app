@@ -11,6 +11,7 @@ const getWeather = (url, callback) => {
                 callback('Unable to find weather data', undefined);
             } else {
                 const data = response.body;
+                console.log(data);
                 callback(undefined, [data.daily.data[0].summary, data.daily.data[0].precipType]);
 
             }

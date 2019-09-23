@@ -11,9 +11,9 @@ const getLocation = (location, callback)=>{
         if (error) {
             console.log('Unable to connect location service')
         } if (response.body.features === undefined) {
-            callback('Unable to fetch location', [latitude, longitude]);
+            callback('Unable to fetch location', undefined);
         } else if (response.body.features.length === 0) {
-            callback('Unknown Location', [latitude, longitude]);
+            callback('Unknown Location', undefined);
         } else {
             let latitude = response.body.features[0].center[1];
             let longitude = response.body.features[0].center[0];
