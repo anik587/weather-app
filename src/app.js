@@ -47,11 +47,11 @@ app.get('/weather-data', (req, res)=>{
     let url = '';
 
     if (!req.query.city){
-        res.status(500).send(JSON.stringify({status: false, message:'City Required', data: []}))
+        return res.status(500).send(JSON.stringify({status: false, message:'City Required', data: []}))
     }
         getPosition(req.query.city, (err, data) => {
             if (data === undefined) {
-                res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }));
+                return res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }));
             } else {
                 latitude = data[0]
                 longitude = data[1]
@@ -59,9 +59,9 @@ app.get('/weather-data', (req, res)=>{
                 getWeather(url, (err, data) => {
                     console.log(data)
                     if (data === undefined) {
-                        res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }))
+                        return res.status(500).send(JSON.stringify({ status: false, message: err, data: [] }))
                     } else {
-                        res.status(200).send(JSON.stringify({ status: true, message: err, data: data }))
+                        return res.status(200).send(JSON.stringify({ status: true, message: err, data: data }))
                     }
                 })
             }
